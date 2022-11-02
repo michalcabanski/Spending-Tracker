@@ -28,31 +28,35 @@ public class SpendingTracker {
             System.out.println("2. Zmieñ nazwê kategorii");
             System.out.println("3. Wróæ");
 
-            int userChoice = Integer.parseInt(scanner.nextLine());
-            switch (userChoice) {
-                case 1 -> {
-                    System.out.print("Podaj nazwê: ");
-                    String name = scanner.nextLine();
-                    addCategory(name);
-                }
-                case 2 -> {
-                    System.out.print("Wybierz kategoriê: ");
-                    String name = scanner.nextLine();
-                    double value = categories.get(name);
-                    categories.remove(name);
-                    System.out.print("Podaj now¹ nazwê: ");
-                    String newName = scanner.nextLine();
-                    categories.put(newName, value);
+            try {
+                int userChoice = scanner.nextInt();
+                scanner.nextLine();
+                switch (userChoice) {
+                    case 1 -> {
+                        System.out.print("Podaj nazwê: ");
+                        String name = scanner.nextLine();
+                        addCategory(name);
+                    }
+                    case 2 -> {
+                        System.out.print("Wybierz kategoriê: ");
+                        String name = scanner.nextLine();
+                        double value = categories.get(name);
+                        categories.remove(name);
+                        System.out.print("Podaj now¹ nazwê: ");
+                        String newName = scanner.nextLine();
+                        categories.put(newName, value);
 
-                    for (FinancialOperation financialOperation : financialOperations) {
-                        if (financialOperation.getCategory().equals(name)) {
-                            financialOperation.setCategory(newName);
+                        for (FinancialOperation financialOperation : financialOperations) {
+                            if (financialOperation.getCategory().equals(name)) {
+                                financialOperation.setCategory(newName);
+                            }
                         }
                     }
+                    case 3 -> shouldContinue = false;
                 }
-                case 3 -> {
-                    shouldContinue = false;
-                }
+            } catch(InputMismatchException e) {
+                System.out.println("Podaj liczbê");
+                scanner.nextLine();
             }
         }
     }
@@ -90,37 +94,45 @@ public class SpendingTracker {
     }
 
     public void displayFinancialOperations() {
-        System.out.println("Wybierz opcjê:");
-        System.out.println("1. Wszystkie operacje");
-        System.out.println("2. Wydatki");
-        System.out.println("3. Przychody");
-        System.out.println("4. Operacje dla wybranej kategorii");
-//        System.out.println("5. Wróæ");
+        boolean shouldContinue = true;
+        while (shouldContinue) {
+            System.out.println("Wybierz opcjê:");
+            System.out.println("1. Wszystkie operacje");
+            System.out.println("2. Wydatki");
+            System.out.println("3. Przychody");
+            System.out.println("4. Operacje dla wybranej kategorii");
+            System.out.println("5. Wróæ");
 
-        int userChoice = scanner.nextInt();
-        switch (userChoice) {
-            case 1 -> {
-                for (FinancialOperation financialOperation : financialOperations) financialOperation.displayInformations();
-            }
-            case 2 -> {
-                for (FinancialOperation financialOperation : financialOperations) {
-                    if (financialOperation instanceof Expense) financialOperation.displayInformations();
+            try {
+                int userChoice = scanner.nextInt();
+                switch (userChoice) {
+                    case 1 -> {
+                        for (FinancialOperation financialOperation : financialOperations) financialOperation.displayInformations();
+                    }
+                    case 2 -> {
+                        for (FinancialOperation financialOperation : financialOperations) {
+                            if (financialOperation instanceof Expense) financialOperation.displayInformations();
+                        }
+                    }
+                    case 3 -> {
+                        for (FinancialOperation financialOperation : financialOperations) {
+                            if (financialOperation instanceof Income) financialOperation.displayInformations();
+                        }
+                    }
+                    case 4 -> {
+                        displayCategories();
+                        System.out.print("Wybierz kategoriê: ");
+                        String name = scanner.next();
+                        for (FinancialOperation financialOperation : financialOperations) {
+                            if (financialOperation.getCategory().equals(name)) financialOperation.displayInformations();
+                        }
+                    }
+                    case 5 -> shouldContinue = false;
                 }
-            }
-            case 3 -> {
-                for (FinancialOperation financialOperation : financialOperations) {
-                    if (financialOperation instanceof Income) financialOperation.displayInformations();
-                }
-            }
-            case 4 -> {
-                displayCategories();
-                System.out.print("Wybierz kategoriê: ");
-                String name = scanner.next();
-                for (FinancialOperation financialOperation : financialOperations) {
-                    if (financialOperation.getCategory().equals(name)) financialOperation.displayInformations();
-                }
+            } catch(InputMismatchException e) {
+                System.out.println("Podaj liczbê");
+                scanner.nextLine();
             }
         }
-        System.out.println();
     }
 }

@@ -24,7 +24,7 @@ public class Main {
             System.out.println("7. Wyjœcie");
 
             try {
-               int userChoice = scanner.nextInt();
+                int userChoice = scanner.nextInt();
                 switch (userChoice) {
                     case 1 -> spendingTracker.addFinancialOperation(1);
                     case 2 -> spendingTracker.addFinancialOperation(2);
@@ -36,7 +36,6 @@ public class Main {
                 }
             } catch(InputMismatchException e) {
                 System.out.println("Podaj liczbê");
-                System.out.println(e);
                 scanner.nextLine();
             }
         }
