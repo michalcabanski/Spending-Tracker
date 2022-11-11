@@ -70,7 +70,7 @@ public class SpendingTracker {
         System.out.printf("Stan konta: %dz³\n", (int)balance);
     }
 
-    public void addFinancialOperation(int i) {
+    public void addFinancialOperation(operationType type) {
         System.out.print("Podaj kwotê w z³: ");
         double value = Double.parseDouble(scanner.nextLine());
         displayCategories();
@@ -79,14 +79,11 @@ public class SpendingTracker {
         String date = scanner.nextLine();
         System.out.print("Dodaj opis (opcjonalnie): ");
         String description = scanner.nextLine();
-        if (i == 1) {
-            Expense expense = new Expense(value, category, date, description);
-            financialOperations.add(expense);
-            balance -= value;
-        } else if (i == 2) {
-            Income income = new Income(value, category, date, description);
-            financialOperations.add(income);
-            balance += value;
+        FinancialOperation financialOperation = new FinancialOperation(value, category, date, description, type);
+        financialOperations.add(financialOperation);
+        switch (type) {
+            case Income -> balance += value;
+            case Expense -> balance -= value;
         }
         double n = categories.get(category);
         value += n;
@@ -105,24 +102,25 @@ public class SpendingTracker {
 
             try {
                 int userChoice = scanner.nextInt();
+                scanner.nextLine();
                 switch (userChoice) {
                     case 1 -> {
                         for (FinancialOperation financialOperation : financialOperations) financialOperation.displayInformations();
                     }
                     case 2 -> {
                         for (FinancialOperation financialOperation : financialOperations) {
-                            if (financialOperation instanceof Expense) financialOperation.displayInformations();
+                            if (financialOperation.getType().equals(operationType.Expense)) financialOperation.displayInformations();
                         }
                     }
                     case 3 -> {
                         for (FinancialOperation financialOperation : financialOperations) {
-                            if (financialOperation instanceof Income) financialOperation.displayInformations();
+                            if (financialOperation.getType().equals(operationType.Income)) financialOperation.displayInformations();
                         }
                     }
                     case 4 -> {
                         displayCategories();
                         System.out.print("Wybierz kategoriê: ");
-                        String name = scanner.next();
+                        String name = scanner.nextLine();
                         for (FinancialOperation financialOperation : financialOperations) {
                             if (financialOperation.getCategory().equals(name)) financialOperation.displayInformations();
                         }
