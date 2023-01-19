@@ -13,7 +13,7 @@ public class SpendingTracker {
     }
 
     public void displayCategories() {
-        System.out.println("Dostêpne kategorie:");
+        System.out.println("DostÄ™pne kategorie:");
         for (String category : categories.keySet())  {
             System.out.println(category);
         }
@@ -23,26 +23,26 @@ public class SpendingTracker {
         boolean shouldContinue = true;
         while (shouldContinue) {
             displayCategories();
-            System.out.println("\nWybierz opcjê:");
-            System.out.println("1. Dodaj kategoriê");
-            System.out.println("2. Zmieñ nazwê kategorii");
-            System.out.println("3. Wróæ");
+            System.out.println("\nWybierz opcjÄ™:");
+            System.out.println("1. Dodaj kategoriÄ™");
+            System.out.println("2. ZmieÅ„ nazwÄ™ kategorii");
+            System.out.println("3. WrÃ³Ä‡");
 
             try {
                 int userChoice = scanner.nextInt();
                 scanner.nextLine();
                 switch (userChoice) {
                     case 1 -> {
-                        System.out.print("Podaj nazwê: ");
+                        System.out.print("Podaj nazwÄ™: ");
                         String name = scanner.nextLine();
                         addCategory(name);
                     }
                     case 2 -> {
-                        System.out.print("Wybierz kategoriê: ");
+                        System.out.print("Wybierz kategoriÄ™: ");
                         String name = scanner.nextLine();
                         double value = categories.get(name);
                         categories.remove(name);
-                        System.out.print("Podaj now¹ nazwê: ");
+                        System.out.print("Podaj nowÄ… nazwÄ™: ");
                         String newName = scanner.nextLine();
                         categories.put(newName, value);
 
@@ -55,27 +55,27 @@ public class SpendingTracker {
                     case 3 -> shouldContinue = false;
                 }
             } catch(InputMismatchException e) {
-                System.out.println("Podaj liczbê");
+                System.out.println("Podaj liczbÄ™");
                 scanner.nextLine();
             }
         }
     }
 
     public void setAccountBalance() {
-        System.out.print("Podaj stan konta w z³: ");
+        System.out.print("Podaj stan konta w zÅ‚: ");
         this.balance = Double.parseDouble(scanner.nextLine());
     }
 
     public void displayAccountBalance() {
-        System.out.printf("Stan konta: %dz³\n", (int)balance);
+        System.out.printf("Stan konta: %dzÅ‚\n", (int)balance);
     }
 
     public void addFinancialOperation(operationType type) {
-        System.out.print("Podaj kwotê w z³: ");
+        System.out.print("Podaj kwotÄ™ w zÅ‚: ");
         double value = Double.parseDouble(scanner.nextLine());
         displayCategories();
         String category = scanner.nextLine();
-        System.out.print("Podaj datê: ");
+        System.out.print("Podaj datÄ™: ");
         String date = scanner.nextLine();
         System.out.print("Dodaj opis (opcjonalnie): ");
         String description = scanner.nextLine();
@@ -93,12 +93,12 @@ public class SpendingTracker {
     public void displayFinancialOperations() {
         boolean shouldContinue = true;
         while (shouldContinue) {
-            System.out.println("Wybierz opcjê:");
+            System.out.println("Wybierz opcjÄ™:");
             System.out.println("1. Wszystkie operacje");
             System.out.println("2. Wydatki");
             System.out.println("3. Przychody");
             System.out.println("4. Operacje dla wybranej kategorii");
-            System.out.println("5. Wróæ");
+            System.out.println("5. WrÃ³Ä‡");
 
             try {
                 int userChoice = scanner.nextInt();
@@ -119,7 +119,7 @@ public class SpendingTracker {
                     }
                     case 4 -> {
                         displayCategories();
-                        System.out.print("Wybierz kategoriê: ");
+                        System.out.print("Wybierz kategoriÄ™: ");
                         String name = scanner.nextLine();
                         for (FinancialOperation financialOperation : financialOperations) {
                             if (financialOperation.getCategory().equals(name)) financialOperation.displayInformations();
@@ -128,7 +128,7 @@ public class SpendingTracker {
                     case 5 -> shouldContinue = false;
                 }
             } catch(InputMismatchException e) {
-                System.out.println("Podaj liczbê");
+                System.out.println("Podaj liczbÄ™");
                 scanner.nextLine();
             }
         }

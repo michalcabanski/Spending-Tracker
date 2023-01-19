@@ -17,9 +17,9 @@ public class FinancialOperation {
 
     public void displayInformations() {
         if (type == operationType.Income) {
-            System.out.printf("+ %.2fz≥ * %s * %s * %s\n", value, category, date, note);
+            System.out.printf("+ %.2fz≈Ç * %s * %s * %s\n", value, category, date, note);
         } else if (type == operationType.Expense) {
-            System.out.printf("- %.2fz≥ * %s * %s * %s\n", value, category, date, note);
+            System.out.printf("- %.2fz≈Ç * %s * %s * %s\n", value, category, date, note);
         }
     }
 

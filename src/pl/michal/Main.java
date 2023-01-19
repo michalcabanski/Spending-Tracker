@@ -8,20 +8,20 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean shouldContinue = true;
         SpendingTracker spendingTracker = new SpendingTracker();
-        spendingTracker.addCategory("Wyp³ata");
+        spendingTracker.addCategory("WypÅ‚ata");
         spendingTracker.addCategory("Zakupy");
         spendingTracker.addCategory("Mieszkanie");
         spendingTracker.addCategory("Ubrania");
 
         while (shouldContinue) {
-            System.out.println("Wybierz opcjê:");
+            System.out.println("Wybierz opcjÄ™:");
             System.out.println("1. Dodaj wydatek");
-            System.out.println("2. Dodaj przychód");
-            System.out.println("3. Poka¿ stan konta");
+            System.out.println("2. Dodaj przychÃ³d");
+            System.out.println("3. PokaÅ¼ stan konta");
             System.out.println("4. Ustaw stan konta");
-            System.out.println("5. Poka¿ operacje");
-            System.out.println("6. Zarz¹dzaj kategoriami");
-            System.out.println("7. Wyjœcie");
+            System.out.println("5. PokaÅ¼ operacje");
+            System.out.println("6. ZarzÄ…dzaj kategoriami");
+            System.out.println("7. WyjÅ›cie");
 
             try {
                 int userChoice = scanner.nextInt();
@@ -35,7 +35,7 @@ public class Main {
                     case 7 -> shouldContinue = false;
                 }
             } catch(InputMismatchException e) {
-                System.out.println("Podaj liczbê");
+                System.out.println("Podaj liczbÄ™");
                 scanner.nextLine();
             }
         }
