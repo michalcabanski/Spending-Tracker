@@ -1,6 +1,5 @@
 package pl.michal;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -24,19 +23,18 @@ public class Main {
             System.out.println("7. Wyjście");
 
             try {
-                int userChoice = scanner.nextInt();
+                int userChoice = Integer.parseInt(scanner.nextLine());
                 switch (userChoice) {
                     case 1 -> spendingTracker.addFinancialOperation(operationType.Expense);
                     case 2 -> spendingTracker.addFinancialOperation(operationType.Income);
-                    case 3 -> spendingTracker.displayAccountBalance();
+                    case 3 -> spendingTracker.showAccountBalance();
                     case 4 -> spendingTracker.setAccountBalance();
-                    case 5 -> spendingTracker.displayFinancialOperations();
+                    case 5 -> spendingTracker.showFinancialOperations();
                     case 6 -> spendingTracker.menageCategories();
                     case 7 -> shouldContinue = false;
                 }
-            } catch(InputMismatchException e) {
-                System.out.println("Podaj liczbę");
-                scanner.nextLine();
+            } catch (NumberFormatException e) {
+                System.out.println("Podaj liczbę!");
             }
         }
     }
