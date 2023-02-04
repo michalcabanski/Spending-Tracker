@@ -1,6 +1,9 @@
 package pl.michal;
 
 public class FinancialOperation {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
     private double value;
     private Category category;
     private String date;
@@ -37,9 +40,9 @@ public class FinancialOperation {
 
     public void showInformation() {
         if (type.equals(operationType.Income)) {
-            System.out.printf("+%.2fzł * %s * %s * %s\n", value, category.getName(), date, note);
+            System.out.printf("%s+%.2fzł * %s * %s * %s%s\n", ANSI_GREEN, value, category.getName(), date, note, ANSI_RESET);
         } else if (type.equals(operationType.Expense)){
-            System.out.printf("%.2fzł * %s * %s * %s\n", value, category.getName(), date, note);
+            System.out.printf("%s%.2fzł * %s * %s * %s%s\n", ANSI_RED, value, category.getName(), date, note, ANSI_RESET);
         }
     }
 
