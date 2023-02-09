@@ -38,12 +38,8 @@ public class FinancialOperation {
         return type;
     }
 
-    public void showInformation() {
-        if (type.equals(operationType.Income)) {
-            System.out.printf("%s+%.2fzł * %s * %s * %s%s\n", ANSI_GREEN, value, category.getName(), date, note, ANSI_RESET);
-        } else if (type.equals(operationType.Expense)){
-            System.out.printf("%s%.2fzł * %s * %s * %s%s\n", ANSI_RED, value, category.getName(), date, note, ANSI_RESET);
-        }
+    public String toString() {
+        return String.format("%s%.2fzł * %s * %s * %s%s", value >= 0 ? ANSI_GREEN + "+" : ANSI_RED + "" ,value, category.getName(), date, note, ANSI_RESET);
     }
 
 }

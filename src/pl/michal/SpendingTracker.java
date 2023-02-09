@@ -64,24 +64,8 @@ public class SpendingTracker {
     public void addFinancialOperation(operationType type) {
         System.out.print("Podaj kwotę w zł: ");
         double value = Math.abs(Double.parseDouble(scanner.nextLine()));
-        if (type.equals(operationType.Expense)) {
-            value *= (- 1);
-        }
-        showCategories();
-        System.out.print("Wybierz kategorię po numerze: ");
-        Category category = null;
-        boolean isValid = false;
-        while (!isValid){
-            try {
-                int index = Integer.parseInt(scanner.nextLine());
-                category = categories.get(index - 1);
-                isValid = true;
-            } catch (IndexOutOfBoundsException e) {
-                System.out.print("Wybierz dostępny numer: ");
-            } catch (NumberFormatException e) {
-                System.out.print("Podaj liczbę: ");
-            }
-        }
+        value *= type.equals(operationType.Expense) ? -1 : 1;
+        Category category = chooseCategory();
         System.out.print("Podaj datę: ");
         String date = scanner.nextLine();
         System.out.print("Dodaj opis (opcjonalnie): ");
@@ -104,35 +88,21 @@ public class SpendingTracker {
             try {
                 int userChoice = Integer.parseInt(scanner.nextLine());
                 switch (userChoice) {
-                    case 1 -> operations.forEach(FinancialOperation::showInformation);
+                    case 1 -> operations.forEach(System.out::println);
                     case 2 -> {
                         for (FinancialOperation operation : operations) {
-                            if (operation.getType().equals(operationType.Expense)) operation.showInformation();
+                            if (operation.getType().equals(operationType.Expense)) System.out.println(operation);
                         }
                     }
                     case 3 -> {
                         for (FinancialOperation operation : operations) {
-                            if (operation.getType().equals(operationType.Income)) operation.showInformation();
+                            if (operation.getType().equals(operationType.Income)) System.out.println(operation);
                         }
                     }
                     case 4 -> {
-                        showCategories();
-                        System.out.print("Wybierz kategorię: ");
-                        String name = null;
-                        boolean isValid = false;
-                        while (!isValid){
-                            try {
-                                int index = Integer.parseInt(scanner.nextLine());
-                                name = categories.get(index - 1).getName();
-                                isValid = true;
-                            } catch (IndexOutOfBoundsException e) {
-                                System.out.print("Wybierz dostępny numer: ");
-                            } catch (NumberFormatException e) {
-                                System.out.print("Podaj liczbę: ");
-                            }
-                        }
+                        Category category = chooseCategory();
                         for (FinancialOperation operation : operations) {
-                            if (operation.getCategory().getName().equals(name)) operation.showInformation();
+                            if (operation.getCategory().equals(category)) System.out.println(operation);
                         }
                     }
                     case 5 -> shouldContinue = false;
@@ -141,5 +111,24 @@ public class SpendingTracker {
                 System.out.println("Podaj liczbę!");
             }
         }
+    }
+
+    private Category chooseCategory() {
+        showCategories();
+        System.out.print("Wybierz kategorię po numerze: ");
+        Category category = null;
+        boolean isValid = false;
+        while (!isValid){
+            try {
+                int index = Integer.parseInt(scanner.nextLine());
+                category = categories.get(index - 1);
+                isValid = true;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.print("Wybierz dostępny numer: ");
+            } catch (NumberFormatException e) {
+                System.out.print("Podaj liczbę: ");
+            }
+        }
+        return category;
     }
 }
