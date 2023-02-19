@@ -1,16 +1,20 @@
 package pl.michal;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 public class FinancialOperation {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
     private double value;
     private Category category;
-    private String date;
+    private LocalDate date;
     private String note;
     private operationType type;
 
-    public FinancialOperation(double value, Category category, String date, String description, operationType type) {
+    public FinancialOperation(double value, Category category, LocalDate date, String description, operationType type) {
         this.value = value;
         this.category = category;
         this.date = date;
@@ -26,7 +30,7 @@ public class FinancialOperation {
         return category;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -39,7 +43,7 @@ public class FinancialOperation {
     }
 
     public String toString() {
-        return String.format("%s%.2fzł * %s * %s * %s%s", value >= 0 ? ANSI_GREEN + "+" : ANSI_RED + "" ,value, category.getName(), date, note, ANSI_RESET);
+        return String.format("%s%.2fzł * %s * %s * %s%s", value >= 0 ? ANSI_GREEN + "+" : ANSI_RED + "" ,value, category.getName(), date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), note, ANSI_RESET);
     }
 
 }

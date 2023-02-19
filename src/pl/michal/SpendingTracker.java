@@ -1,5 +1,6 @@
 package pl.michal;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class SpendingTracker {
@@ -66,8 +67,7 @@ public class SpendingTracker {
         double value = Math.abs(Double.parseDouble(scanner.nextLine()));
         value *= type.equals(operationType.Expense) ? -1 : 1;
         Category category = chooseCategory();
-        System.out.print("Podaj datę: ");
-        String date = scanner.nextLine();
+        LocalDate date = LocalDate.now();
         System.out.print("Dodaj opis (opcjonalnie): ");
         String description = scanner.nextLine();
         FinancialOperation financialOperation = new FinancialOperation(value, category, date, description, type);
