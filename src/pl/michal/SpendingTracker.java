@@ -3,6 +3,9 @@ package pl.michal;
 import java.time.LocalDate;
 import java.util.*;
 
+import static pl.michal.operationType.Expense;
+import static pl.michal.operationType.Income;
+
 public class SpendingTracker {
     private double balance;
     private List<FinancialOperation> operations = new ArrayList<>();
@@ -65,7 +68,7 @@ public class SpendingTracker {
     public void addFinancialOperation(operationType type) {
         System.out.print("Podaj kwotę w zł: ");
         double value = Math.abs(Double.parseDouble(scanner.nextLine()));
-        value *= type.equals(operationType.Expense) ? -1 : 1;
+        value *= type.equals(Expense) ? -1 : 1;
         Category category = chooseCategory();
         LocalDate date = LocalDate.now();
         System.out.print("Dodaj opis (opcjonalnie): ");
@@ -90,20 +93,20 @@ public class SpendingTracker {
                 switch (userChoice) {
                     case 1 -> operations.forEach(System.out::println);
                     case 2 -> {
-                        for (FinancialOperation operation : operations) {
-                            if (operation.getType().equals(operationType.Expense)) System.out.println(operation);
-                        }
+                        operations.stream()
+                                .filter(operation -> operation.getType().equals(Expense))
+                                .forEach(System.out::println);
                     }
                     case 3 -> {
-                        for (FinancialOperation operation : operations) {
-                            if (operation.getType().equals(operationType.Income)) System.out.println(operation);
-                        }
+                        operations.stream()
+                                .filter(operation -> operation.getType().equals(Income))
+                                .forEach(System.out::println);
                     }
                     case 4 -> {
                         Category category = chooseCategory();
-                        for (FinancialOperation operation : operations) {
-                            if (operation.getCategory().equals(category)) System.out.println(operation);
-                        }
+                        operations.stream()
+                                .filter(operation -> operation.getCategory().equals(category))
+                                .forEach(System.out::println);
                     }
                     case 5 -> shouldContinue = false;
                 }
@@ -117,12 +120,12 @@ public class SpendingTracker {
         showCategories();
         System.out.print("Wybierz kategorię po numerze: ");
         Category category = null;
-        boolean isValid = false;
-        while (!isValid){
+        boolean isMatching = false;
+        while (!isMatching){
             try {
                 int index = Integer.parseInt(scanner.nextLine());
                 category = categories.get(index - 1);
-                isValid = true;
+                isMatching = true;
             } catch (IndexOutOfBoundsException e) {
                 System.out.print("Wybierz dostępny numer: ");
             } catch (NumberFormatException e) {
