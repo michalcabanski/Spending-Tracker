@@ -76,6 +76,7 @@ public class SpendingTracker {
         FinancialOperation financialOperation = new FinancialOperation(value, category, date, description, type);
         operations.add(financialOperation);
         balance += value;
+        category.increaseValue(value);
     }
 
     public void showFinancialOperations() {
