@@ -3,8 +3,7 @@ package pl.michal;
 import java.time.LocalDate;
 import java.util.*;
 
-import static pl.michal.OperationType.Expense;
-import static pl.michal.OperationType.Income;
+import static pl.michal.OperationType.*;
 
 public class SpendingTracker {
     private double balance;
