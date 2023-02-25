@@ -3,8 +3,8 @@ package pl.michal;
 import java.time.LocalDate;
 import java.util.*;
 
-import static pl.michal.operationType.Expense;
-import static pl.michal.operationType.Income;
+import static pl.michal.OperationType.Expense;
+import static pl.michal.OperationType.Income;
 
 public class SpendingTracker {
     private double balance;
@@ -65,7 +65,7 @@ public class SpendingTracker {
         System.out.printf("Stan konta: %.2fzł\n", balance);
     }
 
-    public void addFinancialOperation(operationType type) {
+    public void addFinancialOperation(OperationType type) {
         System.out.print("Podaj kwotę w zł: ");
         double value = Math.abs(Double.parseDouble(scanner.nextLine()));
         value *= type.equals(Expense) ? -1 : 1;

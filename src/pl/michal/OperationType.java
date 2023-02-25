@@ -1,5 +1,5 @@
 package pl.michal;
 
-public enum operationType {
+public enum OperationType {
     Income, Expense
 }

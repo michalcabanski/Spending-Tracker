@@ -12,9 +12,9 @@ public class FinancialOperation {
     private Category category;
     private LocalDate date;
     private String note;
-    private operationType type;
+    private OperationType type;
 
-    public FinancialOperation(double value, Category category, LocalDate date, String description, operationType type) {
+    public FinancialOperation(double value, Category category, LocalDate date, String description, OperationType type) {
         this.value = value;
         this.category = category;
         this.date = date;
@@ -38,7 +38,7 @@ public class FinancialOperation {
         return note;
     }
 
-    public operationType getType() {
+    public OperationType getType() {
         return type;
     }
 

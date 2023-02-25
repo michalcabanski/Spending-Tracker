@@ -25,8 +25,8 @@ public class Main {
             try {
                 int userChoice = Integer.parseInt(scanner.nextLine());
                 switch (userChoice) {
-                    case 1 -> spendingTracker.addFinancialOperation(operationType.Expense);
-                    case 2 -> spendingTracker.addFinancialOperation(operationType.Income);
+                    case 1 -> spendingTracker.addFinancialOperation(OperationType.Expense);
+                    case 2 -> spendingTracker.addFinancialOperation(OperationType.Income);
                     case 3 -> spendingTracker.showAccountBalance();
                     case 4 -> spendingTracker.setAccountBalance();
                     case 5 -> spendingTracker.showFinancialOperations();
