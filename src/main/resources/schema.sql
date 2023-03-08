@@ -7,7 +7,7 @@ CREATE TABLE operation (
   id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   category_id BIGINT NOT NULL,
   amount DECIMAL(6,2) NOT NULL,
-  date DATETIME NOT NULL,
+  created DATETIME NULL,
   description VARCHAR(45) NULL
 );
 
