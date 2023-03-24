@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -20,7 +21,7 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long category_id;
-    private double amount;
+    private BigDecimal amount;
     private LocalDate created;
     private String description;
 }
