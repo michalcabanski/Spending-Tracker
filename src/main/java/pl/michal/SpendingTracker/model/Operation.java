@@ -1,9 +1,6 @@
 package pl.michal.SpendingTracker.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +18,13 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long category_id;
+    @Enumerated(EnumType.STRING)
+    private Type type;
     private BigDecimal amount;
     private LocalDate created;
     private String description;
+
+    public static enum Type {
+        INCOME, EXPENSE
+    }
 }
