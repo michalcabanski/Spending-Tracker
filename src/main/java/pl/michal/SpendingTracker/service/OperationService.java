@@ -16,7 +16,7 @@ public class OperationService {
     private final OperationRepository operationRepository;
 
     public List<Operation> getOperations() {
-        return operationRepository.findAll();
+        return operationRepository.findByOrderByCreated();
     }
 
     public Operation getSingleOperation(long id) {
