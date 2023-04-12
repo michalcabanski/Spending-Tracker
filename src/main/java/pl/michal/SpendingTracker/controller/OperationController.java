@@ -15,8 +15,8 @@ public class OperationController {
     private final OperationService operationService;
 
     @GetMapping("")
-    public List<Operation> getOperations() {
-        return operationService.getOperations();
+    public List<Operation> getOperations(@RequestParam(required = false) Integer year, @RequestParam(required = false) Integer month) {
+        return operationService.getOperations(year, month);
     }
 
     @GetMapping("/{id}")

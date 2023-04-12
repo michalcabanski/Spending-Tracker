@@ -15,8 +15,11 @@ public class OperationService {
 
     private final OperationRepository operationRepository;
 
-    public List<Operation> getOperations() {
-        return operationRepository.findByOrderByCreated();
+    public List<Operation> getOperations(Integer year, Integer month) {
+        if (year == null || month == null) {
+            return operationRepository.findByOrderByCreated();
+        }
+        return operationRepository.findByYearAndMonthOrderByCreated(year, month);
     }
 
     public Operation getSingleOperation(long id) {
