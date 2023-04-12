@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.michal.SpendingTracker.model.Operation;
 import pl.michal.SpendingTracker.service.OperationService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -22,6 +23,11 @@ public class OperationController {
     @GetMapping("/{id}")
     public Operation getSingleOperation(@PathVariable long id) {
         return operationService.getSingleOperation(id);
+    }
+
+    @GetMapping("/balance")
+    public BigDecimal getBalance(@RequestParam(required = false) Integer year, @RequestParam(required = false) Integer month) {
+        return operationService.getBalance(year, month);
     }
 
     @PostMapping("")

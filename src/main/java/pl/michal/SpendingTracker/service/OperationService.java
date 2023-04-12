@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.michal.SpendingTracker.model.Operation;
 import pl.michal.SpendingTracker.repository.OperationRepository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,8 +19,25 @@ public class OperationService {
     public List<Operation> getOperations(Integer year, Integer month) {
         if (year == null || month == null) {
             return operationRepository.findByOrderByCreated();
+        } else {
+            return operationRepository.findByYearAndMonthOrderByCreated(year, month);
         }
-        return operationRepository.findByYearAndMonthOrderByCreated(year, month);
+    }
+
+    public BigDecimal getBalance(Integer year, Integer month) {
+        if (year == null || month == null) {
+            return operationRepository.findByOrderByCreated()
+                    .stream()
+                    .map(Operation::getAmount)
+                    .reduce(BigDecimal::add)
+                    .get();
+        } else {
+            return operationRepository.findByYearAndMonthOrderByCreated(year, month)
+                    .stream()
+                    .map(Operation::getAmount)
+                    .reduce(BigDecimal::add)
+                    .get();
+        }
     }
 
     public Operation getSingleOperation(long id) {
