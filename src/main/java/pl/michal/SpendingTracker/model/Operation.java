@@ -23,8 +23,4 @@ public class Operation {
     private BigDecimal amount;
     private LocalDate created;
     private String description;
-
-    public static enum Type {
-        INCOME, EXPENSE
-    }
 }
