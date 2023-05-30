@@ -2,7 +2,7 @@ package pl.michal.SpendingTracker.controller;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import pl.michal.SpendingTracker.controller.dto.CategoryDto;
+import pl.michal.SpendingTracker.dto.CategoryDto;
 import pl.michal.SpendingTracker.model.Category;
 
 import java.util.List;

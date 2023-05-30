@@ -2,12 +2,11 @@ package pl.michal.SpendingTracker.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.michal.SpendingTracker.controller.dto.CategoryDto;
+import pl.michal.SpendingTracker.dto.CategoryDto;
 import pl.michal.SpendingTracker.model.Category;
 import pl.michal.SpendingTracker.service.CategoryService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categories")

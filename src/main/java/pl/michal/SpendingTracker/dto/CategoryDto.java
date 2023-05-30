@@ -1,4 +1,4 @@
-package pl.michal.SpendingTracker.controller.dto;
+package pl.michal.SpendingTracker.dto;
 
 import lombok.Builder;
 import lombok.Data;
