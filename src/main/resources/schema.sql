@@ -13,3 +13,12 @@ CREATE TABLE operation (
 );
 
 ALTER TABLE operation ADD CONSTRAINT operation_category_id FOREIGN KEY (category_id) REFERENCES category(id);
+
+CREATE TABLE api_user (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  firstname VARCHAR(45) NOT NULL,
+  lastname VARCHAR(45) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  password VARCHAR(90) NOT NULL,
+  role VARCHAR(45) NULL
+);
