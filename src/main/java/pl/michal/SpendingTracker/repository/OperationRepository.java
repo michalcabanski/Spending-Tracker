@@ -6,12 +6,15 @@ import org.springframework.stereotype.Repository;
 import pl.michal.SpendingTracker.model.Operation;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OperationRepository extends JpaRepository<Operation, Long> {
-    List<Operation> findByOrderByCreated();
+    List<Operation> findByUserIdOrderByCreated(Long userId);
 
-    @Query(value = "select * from Operation o where year(o.created) = ?1 and month(o.created) = ?2 order by o.created",
+    Optional<Operation> findByUserIdAndId(Long userId, Long Id);
+
+    @Query(value = "select * from Operation o where o.user_id = ?1 and year(o.created) = ?2 and month(o.created) = ?3 order by o.created",
             nativeQuery = true)
-    List<Operation> findByYearAndMonthOrderByCreated(Integer year, Integer month);
+    List<Operation> findByUserIdAndYearAndMonthOrderByCreated(Long userId, Integer year, Integer month);
 }

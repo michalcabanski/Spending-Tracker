@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.michal.SpendingTracker.model.Operation;
+import pl.michal.SpendingTracker.model.User;
 import pl.michal.SpendingTracker.repository.OperationRepository;
 
 import java.math.BigDecimal;
@@ -16,23 +17,32 @@ public class OperationService {
 
     private final OperationRepository operationRepository;
 
-    public List<Operation> getOperations(Integer year, Integer month) {
+    public List<Operation> getOperations(
+            User user,
+            Integer year,
+            Integer month
+    ) {
         if (year == null || month == null) {
-            return operationRepository.findByOrderByCreated();
+            return operationRepository.findByUserIdOrderByCreated(user.getId());
         } else {
-            return operationRepository.findByYearAndMonthOrderByCreated(year, month);
+            return operationRepository.findByUserIdAndYearAndMonthOrderByCreated(user.getId(), year, month);
         }
     }
 
-    public BigDecimal getBalance(Integer year, Integer month) {
+    public BigDecimal getBalance(
+            User user,
+            Integer year,
+            Integer month
+    ) {
         if (year == null || month == null) {
-            return operationRepository.findByOrderByCreated()
+            return operationRepository.findByUserIdOrderByCreated(user.getId())
                     .stream()
                     .map(Operation::getAmount)
                     .reduce(BigDecimal::add)
                     .get();
         } else {
-            return operationRepository.findByYearAndMonthOrderByCreated(year, month)
+            return operationRepository
+                    .findByUserIdAndYearAndMonthOrderByCreated(user.getId(), year, month)
                     .stream()
                     .map(Operation::getAmount)
                     .reduce(BigDecimal::add)
@@ -40,30 +50,39 @@ public class OperationService {
         }
     }
 
-    public Operation getSingleOperation(long id) {
-        return operationRepository.findById(id)
+    public Operation getSingleOperation(User user, long id) {
+        return operationRepository.findByUserIdAndId(user.getId(), id)
                 .orElseThrow();
     }
 
-    public Operation addOperation(Operation operation) {
+    public Operation addOperation(User user, Operation operation) {
         if (operation.getCreated() == null) {
             operation.setCreated(LocalDate.now());
         }
+        operation.setUserId(user.getId());
         return operationRepository.save(operation);
     }
 
     @Transactional
-    public Operation updateOperation(long id, Operation updatedOperation) {
+    public Operation updateOperation(User user, long id, Operation updatedOperation) throws Exception {
         Operation operation = operationRepository.findById(id)
                 .orElseThrow();
 
-        operation.setCategory_id(updatedOperation.getCategory_id());
+        if(user.getId() != operation.getUserId()) {
+            throw new Exception();
+        }
+
+        operation.setCategoryId(updatedOperation.getCategoryId());
         operation.setAmount(updatedOperation.getAmount());
         operation.setDescription(updatedOperation.getDescription());
         return operation;
     }
 
-    public void deleteOperation(long id) {
+    public void deleteOperation(User user, long id) throws Exception {
+        if(user.getId() != operationRepository.findById(id).orElseThrow().getUserId()) {
+            throw new Exception();
+        }
+
         operationRepository.deleteById(id);
     }
 }
