@@ -2,7 +2,6 @@ package pl.michal.SpendingTracker.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.michal.SpendingTracker.dto.CategoryDto;
 import pl.michal.SpendingTracker.model.Category;
 import pl.michal.SpendingTracker.service.CategoryService;
 
@@ -16,8 +15,8 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("")
-    public List<CategoryDto> getCategories() {
-        return CategoryDtoMapper.mapToCategoryDtos(categoryService.getCategories());
+    public List<Category> getCategories() {
+        return categoryService.getCategories();
     }
 
     @GetMapping("/{id}")
