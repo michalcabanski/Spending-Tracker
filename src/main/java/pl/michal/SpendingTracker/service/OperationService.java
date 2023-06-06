@@ -23,7 +23,7 @@ public class OperationService {
             Integer month
     ) {
         if (year == null || month == null) {
-            return operationRepository.findByUserIdOrderByCreated(user.getId());
+            return operationRepository.findByUserIdOrderByCreatedDesc(user.getId());
         } else {
             return operationRepository.findByUserIdAndYearAndMonthOrderByCreated(user.getId(), year, month);
         }
@@ -35,7 +35,7 @@ public class OperationService {
             Integer month
     ) {
         if (year == null || month == null) {
-            return operationRepository.findByUserIdOrderByCreated(user.getId())
+            return operationRepository.findByUserIdOrderByCreatedDesc(user.getId())
                     .stream()
                     .map(Operation::getAmount)
                     .reduce(BigDecimal::add)
