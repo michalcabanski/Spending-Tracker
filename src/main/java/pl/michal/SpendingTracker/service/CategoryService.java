@@ -1,5 +1,6 @@
 package pl.michal.SpendingTracker.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.michal.SpendingTracker.model.Category;
@@ -26,6 +27,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
+    @Transactional
     public Category updateCategory(Long id, Category updatedCategory) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow();
