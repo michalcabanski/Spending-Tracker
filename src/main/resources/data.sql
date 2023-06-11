@@ -37,4 +37,5 @@ INSERT INTO operation (category_id, user_id, type, amount, created, description)
 INSERT INTO operation (category_id, user_id, type, amount, created, description) VALUES (8, 1, 'EXPENSE', -80.00, '2023-02-09', '');
 INSERT INTO operation (category_id, user_id, type, amount, created, description) VALUES (8, 1, 'EXPENSE', -80.00, '2023-03-09', '');
 
-INSERT INTO api_user (firstname, lastname, email, password, role) VALUES ('Michał', 'Cabański', 'michalcabanski@wp.pl', '$2a$12$cBPNq4q7M0ICghPWhKmLYOlhKpOZ2YrY8I3H9OJkUUY84hqrnYBIe' ,'USER');
+INSERT INTO api_user (firstname, lastname, email, password, role) VALUES ('Michał', 'Cabański', 'michalcabanski@wp.pl', '$2a$12$cBPNq4q7M0ICghPWhKmLYOlhKpOZ2YrY8I3H9OJkUUY84hqrnYBIe' ,'ADMIN');
+INSERT INTO api_user (firstname, lastname, email, password, role) VALUES ('Jan', 'Kowalski', 'jankowalski@wp.pl', '$2a$12$c.ZEH2MiQ3mH5eQJmHtsU.g7ENTTkUwUUyJ1YNoqbd2pjeRp7bJ9i' ,'USER');
